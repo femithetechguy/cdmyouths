@@ -1,0 +1,217 @@
+{
+    "formTitle": "CDM Tower of Prayer - Youth Intake Form",
+    "formDescription": "Welcome to the CDM Tower of Prayer youth program. Please complete this form to register.",
+    "sections": [
+        {
+            "title": "Personal Information",
+            "fields": [
+                {
+                    "id": "firstName",
+                    "label": "First Name",
+                    "type": "text",
+                    "required": true,
+                    "placeholder": "Enter your first name"
+                },
+                {
+                    "id": "lastName",
+                    "label": "Last Name",
+                    "type": "text",
+                    "required": true,
+                    "placeholder": "Enter your last name"
+                },
+                {
+                    "id": "dob",
+                    "label": "Date of Birth",
+                    "type": "date",
+                    "required": true,
+                    "placeholder": "MM/DD/YYYY"
+                },
+                {
+                    "id": "gender",
+                    "label": "Gender",
+                    "type": "select",
+                    "required": true,
+                    "options": [
+                        { "value": "male", "label": "Male" },
+                        { "value": "female", "label": "Female" },
+                        { "value": "other", "label": "Prefer not to say" }
+                    ]
+                },
+                {
+                    "id": "phone",
+                    "label": "Phone Number",
+                    "type": "tel",
+                    "required": true,
+                    "placeholder": "(123) 456-7890"
+                },
+                {
+                    "id": "email",
+                    "label": "Email Address",
+                    "type": "email",
+                    "required": true,
+                    "placeholder": "your.email@example.com"
+                }
+            ]
+        },
+        {
+            "title": "Address Information",
+            "fields": [
+                {
+                    "id": "address",
+                    "label": "Street Address",
+                    "type": "text",
+                    "required": true,
+                    "placeholder": "Enter your street address"
+                },
+                {
+                    "id": "city",
+                    "label": "City",
+                    "type": "text",
+                    "required": true,
+                    "placeholder": "Enter your city"
+                },
+                {
+                    "id": "state",
+                    "label": "State/Province",
+                    "type": "text",
+                    "required": true,
+                    "placeholder": "Enter your state"
+                },
+                {
+                    "id": "zipCode",
+                    "label": "ZIP/Postal Code",
+                    "type": "text",
+                    "required": true,
+                    "placeholder": "Enter your ZIP code"
+                }
+            ]
+        },
+        {
+            "title": "Church Information",
+            "fields": [
+                {
+                    "id": "memberSince",
+                    "label": "Member Since",
+                    "type": "date",
+                    "required": false,
+                    "placeholder": "MM/DD/YYYY"
+                },
+                {
+                    "id": "baptized",
+                    "label": "Have you been baptized?",
+                    "type": "radio",
+                    "required": true,
+                    "options": [
+                        { "value": "yes", "label": "Yes" },
+                        { "value": "no", "label": "No" }
+                    ]
+                },
+                {
+                    "id": "baptismDate",
+                    "label": "Baptism Date (if applicable)",
+                    "type": "date",
+                    "required": false,
+                    "placeholder": "MM/DD/YYYY",
+                    "dependsOn": { "id": "baptized", "value": "yes" }
+                },
+                {
+                    "id": "ministries",
+                    "label": "Ministries you're interested in",
+                    "type": "checkbox",
+                    "required": false,
+                    "options": [
+                        { "value": "worship", "label": "Worship Team" },
+                        { "value": "prayer", "label": "Prayer Team" },
+                        { "value": "outreach", "label": "Outreach" },
+                        { "value": "media", "label": "Media/Tech" },
+                        { "value": "hospitality", "label": "Hospitality" },
+                        { "value": "other", "label": "Other" }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "Emergency Contact",
+            "fields": [
+                {
+                    "id": "emergencyName",
+                    "label": "Emergency Contact Name",
+                    "type": "text",
+                    "required": true,
+                    "placeholder": "Enter emergency contact name"
+                },
+                {
+                    "id": "emergencyRelation",
+                    "label": "Relationship",
+                    "type": "text",
+                    "required": true,
+                    "placeholder": "e.g., Parent, Guardian, Sibling"
+                },
+                {
+                    "id": "emergencyPhone",
+                    "label": "Emergency Contact Phone",
+                    "type": "tel",
+                    "required": true,
+                    "placeholder": "(123) 456-7890"
+                }
+            ]
+        },
+        {
+            "title": "Additional Information",
+            "fields": [
+                {
+                    "id": "medicalConditions",
+                    "label": "Any medical conditions we should be aware of?",
+                    "type": "textarea",
+                    "required": false,
+                    "placeholder": "Please list any allergies, conditions, or medications"
+                },
+                {
+                    "id": "prayerRequests",
+                    "label": "Prayer Requests",
+                    "type": "textarea",
+                    "required": false,
+                    "placeholder": "How can we pray for you?"
+                },
+                {
+                    "id": "heardAbout",
+                    "label": "How did you hear about us?",
+                    "type": "select",
+                    "required": true,
+                    "options": [
+                        { "value": "friend", "label": "Friend/Family" },
+                        { "value": "social", "label": "Social Media" },
+                        { "value": "website", "label": "Website" },
+                        { "value": "event", "label": "Event" },
+                        { "value": "other", "label": "Other" }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "Consent",
+            "fields": [
+                {
+                    "id": "photoConsent",
+                    "label": "I give permission to use my photos in church publications and social media",
+                    "type": "checkbox",
+                    "required": true,
+                    "options": [
+                        { "value": "agree", "label": "I agree" }
+                    ]
+                },
+                {
+                    "id": "parentConsent",
+                    "label": "Parent/Guardian consent (for youth under 18)",
+                    "type": "checkbox",
+                    "required": true,
+                    "options": [
+                        { "value": "agree", "label": "I have my parent/guardian's permission" }
+                    ]
+                }
+            ]
+        }
+    ],
+    "submitButtonText": "Submit Registration",
+    "resetButtonText": "Clear Form"
+}

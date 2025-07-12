@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CDM Tower of Prayer - Youth Intake Form</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="form-header">
+            <div class="header-content">
+                <div class="church-logo">
+                    <i class="fas fa-praying-hands"></i>
+                </div>
+                <div class="header-text">
+                    <h1 id="form-title">Loading...</h1>
+                    <p id="form-description">Please wait while we load the form...</p>
+                </div>
+            </div>
+            <div class="header-decoration"></div>
+        </header>
+
+        <main class="form-main">
+            <form id="youth-intake-form" class="intake-form">
+                <div id="form-sections">
+                    <!-- Sections will be dynamically generated here -->
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" id="reset-btn" class="btn btn-secondary">
+                        <i class="fas fa-undo"></i>
+                        <span id="reset-text">Clear Form</span>
+                    </button>
+                    <button type="submit" id="submit-btn" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i>
+                        <span id="submit-text">Submit Registration</span>
+                    </button>
+                </div>
+            </form>
+        </main>
+
+        <footer class="form-footer">
+            <p>&copy; <span id="current-year"></span> CDM Tower of Prayer. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Loading form...</p>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fas fa-check-circle"></i>
+                <h3>Registration Successful!</h3>
+            </div>
+            <div class="modal-body">
+                <p>Thank you for registering with CDM Tower of Prayer youth program. Your information has been submitted successfully and we'll be in touch soon!</p>
+                <p><small>You should receive a confirmation email shortly.</small></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts/script.js"></script>
+</body>
+</html>

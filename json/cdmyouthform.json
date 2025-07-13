@@ -40,7 +40,8 @@
           "required": true,
           "options": [
             { "value": "male", "label": "Male" },
-            { "value": "female", "label": "Female" }          ]
+            { "value": "female", "label": "Female" }
+          ]
         },
         {
           "id": "phone",
@@ -92,11 +93,26 @@
       ]
     },
     {
+      "title": "Visit Information",
+      "fields": [
+      {
+        "id": "firstTime",
+        "label": "Is this your first time amongst us?",
+        "type": "radio",
+        "required": true,
+        "options": [
+        { "value": "yes", "label": "Yes" },
+        { "value": "no", "label": "No" }
+        ]
+      }
+      ]
+    },
+    {
       "title": "Church Information",
       "fields": [
         {
           "id": "memberSince",
-          "label": "Member Since",
+          "label": "Member Since (if you answer 'NO' above)",
           "type": "date",
           "required": false,
           "placeholder": "MM/DD/YYYY"
@@ -199,9 +215,12 @@
         {
           "id": "photoConsent",
           "label": "I give permission to use my photos in church publications and social media",
-          "type": "checkbox",
+          "type": "radio",
           "required": true,
-          "options": [{ "value": "agree", "label": "I agree" }]
+          "options": [
+            { "value": "agree", "label": "I agree" },
+            { "value": "disagree", "label": "I disagree" }
+          ]
         },
         {
           "id": "parentConsent",

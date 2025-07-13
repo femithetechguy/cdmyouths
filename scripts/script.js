@@ -7,7 +7,7 @@ class DynamicFormGenerator {
         this.successModal = document.getElementById('success-modal');
         
         // Formspree endpoint - replace with your actual Formspree form ID
-        this.formspreeEndpoint = 'https://formspree.io/f/YOUR_FORM_ID';
+        this.formspreeEndpoint = 'https://formspree.io/f/xnnzaqwq';
         
         this.sectionIcons = {
             'Personal Information': 'fas fa-user',
@@ -243,7 +243,12 @@ class DynamicFormGenerator {
     
     handleFieldChange(event) {
         const target = event.target;
-        const fieldId = target.name || target.id;
+        let fieldId = target.name || target.id;
+        
+        // For checkbox and radio inputs that are part of groups, get the base field ID
+        if (fieldId.includes('_')) {
+            fieldId = fieldId.split('_')[0];
+        }
         
         // Handle conditional field visibility
         this.updateConditionalFields(fieldId, target.value);
@@ -263,6 +268,7 @@ class DynamicFormGenerator {
                 field.classList.remove('field-hidden');
             } else {
                 field.classList.add('field-hidden');
+                
                 // Clear the field value when hidden
                 const input = field.querySelector('.field-input');
                 if (input) {
@@ -271,6 +277,10 @@ class DynamicFormGenerator {
                         input.checked = false;
                     }
                 }
+                
+                // Also clear checkbox and radio groups
+                field.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+                field.querySelectorAll('input[type="radio"]').forEach(radio => radio.checked = false);
             }
         });
     }
@@ -290,12 +300,19 @@ class DynamicFormGenerator {
         // Clear all previous errors
         document.querySelectorAll('.field-error').forEach(error => error.textContent = '');
         document.querySelectorAll('.field-input').forEach(input => input.classList.remove('error'));
+        document.querySelectorAll('.checkbox-group').forEach(group => group.classList.remove('error'));
+        document.querySelectorAll('.radio-group').forEach(group => group.classList.remove('error'));
         
         // Validate each section's fields
         this.formData.sections.forEach(section => {
             section.fields.forEach(field => {
                 if (field.required && !this.isFieldHidden(field.id)) {
                     const value = this.getFieldValue(field.id, formData);
+                    
+                    // Debug logging for consent fields
+                    if (field.id.includes('Consent') || section.title === 'Consent') {
+                        console.log(`Validating field: ${field.id}, value: "${value}", required: ${field.required}`);
+                    }
                     
                     if (!value || value.trim() === '') {
                         this.showFieldError(field.id, 'This field is required');
@@ -324,12 +341,26 @@ class DynamicFormGenerator {
         const field = document.querySelector(`[data-field-id="${fieldId}"]`);
         if (!field) return '';
         
+        // Check if this is a checkbox group
+        const checkboxGroup = field.querySelector('.checkbox-group');
+        if (checkboxGroup) {
+            const checkboxes = field.querySelectorAll('input[type="checkbox"]:checked');
+            return Array.from(checkboxes).map(cb => cb.value).join(', ');
+        }
+        
+        // Check if this is a radio group
+        const radioGroup = field.querySelector('.radio-group');
+        if (radioGroup) {
+            const radio = field.querySelector('input[type="radio"]:checked');
+            return radio ? radio.value : '';
+        }
+        
+        // Handle regular inputs
         const input = field.querySelector('.field-input');
         if (!input) return '';
         
         if (input.type === 'checkbox') {
-            const checkboxes = field.querySelectorAll('input[type="checkbox"]:checked');
-            return Array.from(checkboxes).map(cb => cb.value).join(', ');
+            return input.checked ? input.value : '';
         } else if (input.type === 'radio') {
             const radio = field.querySelector('input[type="radio"]:checked');
             return radio ? radio.value : '';
@@ -340,29 +371,47 @@ class DynamicFormGenerator {
     
     showFieldError(fieldId, message) {
         const errorElement = document.getElementById(`error-${fieldId}`);
-        const inputElement = document.getElementById(fieldId) || 
-                           document.querySelector(`[name="${fieldId}"]`);
+        const field = document.querySelector(`[data-field-id="${fieldId}"]`);
         
         if (errorElement) {
             errorElement.textContent = message;
         }
         
-        if (inputElement) {
-            inputElement.classList.add('error');
+        if (field) {
+            // For checkbox and radio groups, highlight the container
+            const inputContainer = field.querySelector('.checkbox-group, .radio-group');
+            if (inputContainer) {
+                inputContainer.classList.add('error');
+            } else {
+                // For regular inputs
+                const inputElement = field.querySelector('.field-input');
+                if (inputElement) {
+                    inputElement.classList.add('error');
+                }
+            }
         }
     }
     
     clearFieldError(fieldId) {
         const errorElement = document.getElementById(`error-${fieldId}`);
-        const inputElement = document.getElementById(fieldId) || 
-                           document.querySelector(`[name="${fieldId}"]`);
+        const field = document.querySelector(`[data-field-id="${fieldId}"]`);
         
         if (errorElement) {
             errorElement.textContent = '';
         }
         
-        if (inputElement) {
-            inputElement.classList.remove('error');
+        if (field) {
+            // Clear error from checkbox and radio groups
+            const inputContainer = field.querySelector('.checkbox-group, .radio-group');
+            if (inputContainer) {
+                inputContainer.classList.remove('error');
+            } else {
+                // Clear error from regular inputs
+                const inputElement = field.querySelector('.field-input');
+                if (inputElement) {
+                    inputElement.classList.remove('error');
+                }
+            }
         }
     }
     
@@ -458,6 +507,12 @@ class DynamicFormGenerator {
         // Clear all errors
         document.querySelectorAll('.field-error').forEach(error => error.textContent = '');
         document.querySelectorAll('.field-input').forEach(input => input.classList.remove('error'));
+        document.querySelectorAll('.checkbox-group').forEach(group => group.classList.remove('error'));
+        document.querySelectorAll('.radio-group').forEach(group => group.classList.remove('error'));
+        
+        // Manually clear all checkboxes and radio buttons
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => checkbox.checked = false);
+        document.querySelectorAll('input[type="radio"]').forEach(radio => radio.checked = false);
     }
     
     showErrorMessage(message) {
@@ -511,6 +566,12 @@ class DynamicFormGenerator {
             // Clear all errors
             document.querySelectorAll('.field-error').forEach(error => error.textContent = '');
             document.querySelectorAll('.field-input').forEach(input => input.classList.remove('error'));
+            document.querySelectorAll('.checkbox-group').forEach(group => group.classList.remove('error'));
+            document.querySelectorAll('.radio-group').forEach(group => group.classList.remove('error'));
+            
+            // Manually clear all checkboxes and radio buttons (including in groups)
+            document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => checkbox.checked = false);
+            document.querySelectorAll('input[type="radio"]').forEach(radio => radio.checked = false);
             
             // Reset conditional fields
             document.querySelectorAll('[data-depends-on]').forEach(field => {

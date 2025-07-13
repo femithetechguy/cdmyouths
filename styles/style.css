@@ -434,6 +434,19 @@ select.field-input {
     background: #fef2f2;
 }
 
+.checkbox-group.error,
+.radio-group.error {
+    border: 2px solid #ef4444;
+    border-radius: 8px;
+    padding: 8px;
+    background: #fef2f2;
+}
+
+.checkbox-group.error .checkbox-option,
+.radio-group.error .radio-option {
+    border-color: #ef4444;
+}
+
 .field-error {
     color: #ef4444;
     font-size: 12px;
